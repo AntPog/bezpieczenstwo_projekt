@@ -53,3 +53,21 @@ body {
   button:hover {
     opacity: 0.9;
   }
+
+  .normal-link {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.normal-link:hover {
+    text-decoration: underline;
+}
+
+.normal-link:visited {
+    color: #6f42c1;
+}
+
+.normal-link:active {
+    color: #0056b3;
+}

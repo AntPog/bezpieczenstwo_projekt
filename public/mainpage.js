@@ -1,3 +1,6 @@
+
+const button  = document.getElementById("excercises");
+
 async function loadUsers() {
     const response = await fetch("http://localhost:3000/leaderboard");
     const users = await response.json();
@@ -21,6 +24,9 @@ async function loadUsers() {
 loadUsers();
 
 const user = localStorage.getItem("user_name");
-console.log(user);
+const user_id = localStorage.getItem("user_id");
+document.getElementById("username").innerText = `Hello ${user} (ID: ${user_id})`;
 
-document.getElementById("username").innerText = `Hello ${user}`;
+button.addEventListener("click", () => {
+    window.location.href = "/excercises.html";
+});
