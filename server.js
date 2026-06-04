@@ -137,6 +137,26 @@ app.get("/getExcerciseTypes", async (req, res) => {
     }
 });
 
+app.get("/getComments", async (req, res) => {
+
+    let conn;
+
+    try {
+        conn = await pool.getConnection();
+
+        const rows = await conn.query(`
+            SELECT u.user_name, c.comment from users u inner join comments c on u.user_id = c.user_id
+        `);
+
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
 app.post("/getExcerciseByType", async (req, res) => {
     const { ex_type, user_id } = req.body;
 
