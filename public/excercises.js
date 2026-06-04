@@ -3,6 +3,10 @@ const form = document.getElementById("excercises");
 const tabsmenu = document.getElementById("tab-menu");
 const tabscontent = document.getElementById("tab-content");
 
+const user = localStorage.getItem("user_name");
+const user_id = localStorage.getItem("user_id");
+document.getElementById("username").innerText = `Hello ${user} (ID: ${user_id})`;
+
 async function loadExc(type, table){
     const user_id = localStorage.getItem("user_id");
     const response = await fetch("http://localhost:3000/getExcerciseByType", {
@@ -89,13 +93,4 @@ async function loadExTypes() {
 loadExTypes();
 
 
-
-
-form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-
-
-
-});
 

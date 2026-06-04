@@ -102,10 +102,11 @@ app.get("/leaderboard", async (req, res) => {
         conn = await pool.getConnection();
 
         const rows = await conn.query(`
-            SELECT u.user_name, p.points
+            SELECT u.user_name, SUM( p.points ) as points
             FROM users u
-            INNER JOIN points p ON u.user_id = p.user_id
-            ORDER BY p.points DESC
+            INNER JOIN excercisesPoints p ON u.user_id = p.user_id
+            group by u.user_name
+            ORDER BY points DESC
         `);
 
         res.json(rows);

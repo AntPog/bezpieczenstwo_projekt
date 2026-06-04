@@ -27,6 +27,3 @@ const user = localStorage.getItem("user_name");
 const user_id = localStorage.getItem("user_id");
 document.getElementById("username").innerText = `Hello ${user} (ID: ${user_id})`;
 
-button.addEventListener("click", () => {
-    window.location.href = "/excercises.html";
-});
