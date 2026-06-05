@@ -71,7 +71,6 @@ LOCK TABLES `excercises` WRITE;
 INSERT INTO `excercises` VALUES
 (1,1,'SQL injection 1'),
 (2,1,'SQL injection 2'),
-(3,1,'SQL injection 3'),
 (4,2,'HTML injection 1'),
 (5,3,'Admin view'),
 (6,4,'XSS 1'),
