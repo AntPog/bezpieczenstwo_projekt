@@ -288,7 +288,27 @@ app.get("/showUsers", async (req, res) => {
     }
 });
 
+app.post("/postComment", async (req, res) => {
+    const { user_id, comment } = req.body;
+    let conn;
+
+    try {
+        conn = await pool.getConnection();
+
+        const rows = await conn.query(`
+            INSERT INTO comments (user_id, comment) VALUES (? ,? )
+        `, [user_id, comment]);
+
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");
 });
+
