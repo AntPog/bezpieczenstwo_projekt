@@ -53,6 +53,7 @@ async function loadExTypes() {
         const table_column2 = document.createElement("th");
         table_column1.innerHTML = "Excercise";
         table_column2.innerHTML = "Points";
+        
         table_header.appendChild( table_column1);
         table_header.appendChild(table_column2);
         const row_content = document.createElement("div");
@@ -64,7 +65,8 @@ async function loadExTypes() {
         row.className = "tab";
         row.dataset.tab = type.type.toLowerCase();
 
-        row_content.textContent = type.type;
+        
+        row_content.innerHTML = `<br/><h2>${type.type}</h2><br/>`;
         row_content.id = `content_${type.type.toLowerCase()}`;
         row_content.className = "tab-content";
         row_content.hidden = true;
@@ -86,7 +88,8 @@ async function loadExTypes() {
         });
 
         tabscontent.appendChild(row_content);
-        tabsmenu.appendChild(row);
+        
+        tabsmenu.append(row);
     });
 }
 

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Exercise XSS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style_main.css">
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">My App</div>
+      <nav class="nav">
+        <h3 id="username"></h3>
+        <button><a href="/mainpage.html" class="normal-link">Home</a></button>
+        <button><a href="/excercises.html" class="normal-link">Excercises</a></button>
+        <button class="logout">Logout</button>
+      </nav>
+    </header>
+
+    <H3>Search for a phrase!</H3>
+    
+    <form id="form">
+      <label>Search query:</label>
+      <br />
+      <input type="text" id="user-input-query" />
+      <br />
+      <input type="submit" value="Check!" />
+    </form>
+
+    <h3 id="result"></h3>
+
+    <script src="XSS.js" async defer></script>
+  </body>
+</html>

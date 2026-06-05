@@ -58,7 +58,7 @@ CREATE TABLE `excercises` (
   `ex_type` int(11) DEFAULT NULL,
   `ex_title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ex_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,9 @@ INSERT INTO `excercises` VALUES
 (2,1,'SQL injection 2'),
 (3,1,'SQL injection 3'),
 (4,2,'HTML injection 1'),
-(5,3,'Admin view');
+(5,3,'Admin view'),
+(6,2,'XSS'),
+(7,3,'IDOR');
 /*!40000 ALTER TABLE `excercises` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -103,7 +105,10 @@ LOCK TABLES `excercisespoints` WRITE;
 INSERT INTO `excercisespoints` VALUES
 (1,1,1),
 (1,2,1),
-(1,25,1);
+(1,25,1),
+(6,1,1),
+(7,2,1),
+(6,2,1);
 /*!40000 ALTER TABLE `excercisespoints` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -193,7 +198,7 @@ SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
-(1,'user1','pass'),
+(1,'admin','SuperSecretPassword2137'),
 (2,'user2','pass'),
 (3,'user3','pass'),
 (4,'user3','pass'),
@@ -232,4 +237,4 @@ SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-06-04 18:03:13
+-- Dump completed on 2026-06-05 19:50:01
