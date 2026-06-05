@@ -204,7 +204,7 @@ app.post("/getSQL1", async (req, res) => {
         conn = await pool.getConnection();
 
         const rows = await conn.query(`
-            SELECT user_id, SUM(points) as points from excercisesPoints WHERE user_id = ${user_id} GROUP BY user_id
+            SELECT user_id, user_name FROM users WHERE user_id = ${user_id}
         `);
 
         res.json(rows);

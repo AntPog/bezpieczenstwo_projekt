@@ -7,8 +7,6 @@ const EX_ID = 1;
 
 document.getElementById("username").innerText = `Hello ${user} (ID: ${user_id})`;
 
-
-
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
     let flag = false;
@@ -24,56 +22,41 @@ form.addEventListener("submit", async (event) => {
     });
 
     const result = await response.json();
-    console.log(result);
 
-    switch(result.length){
+    if (result.error) {
+        showResult.innerHTML = `Error: ${result.error}`;
+        return;
+    }
 
+    switch (result.length) {
         case 1:
-            showResult.innerHTML = `Your points: ${result[0].points}`;
-
+            showResult.innerHTML = `User found: ${result[0].user_name} (ID: ${result[0].user_id})`;
             break;
-
         case 0:
-            showResult.innerHTML = `Your points: 0`;
+            showResult.innerHTML = `No user found.`;
             break;
-
         default:
             let resultString = "";
             result.forEach(element => {
-                resultString = resultString + `Your points: ${element.points} `;
+                resultString += `ID: ${element.user_id}, name: ${element.user_name} &nbsp;`;
             });
             showResult.innerHTML = resultString;
             flag = true;
     }
 
-    if (flag){
-
+    if (flag) {
         const responseCheck = await fetch("http://localhost:3000/checkSuccessExcercise", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            user_id: user_id,
-            ex_id : EX_ID
-        })
-    });
-        const resultCheck = await responseCheck.json();
-
-        if (resultCheck.length > 0){
-            return
-        }
-        const success = await fetch("http://localhost:3000/successExcercise", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            user_id: user_id,
-            ex_id : EX_ID
-        })
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id, ex_id: EX_ID })
         });
+        const resultCheck = await responseCheck.json();
+        if (resultCheck.length > 0) return;
 
+        await fetch("http://localhost:3000/successExcercise", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id, ex_id: EX_ID })
+        });
     }
-
-})
+});
