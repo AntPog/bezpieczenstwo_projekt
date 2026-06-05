@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>XSS 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style_main.css">
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="logo">My App</div>
+      <nav class="nav">
+        <h3 id="username"></h3>
+        <button><a href="/mainpage.html" class="normal-link">Home</a></button>
+        <button><a href="/excercises.html" class="normal-link">Excercises</a></button>
+        <button class="logout">Logout</button>
+      </nav>
+    </header>
+
+    <H3>User search</H3>
+    <p>Search for a user. Your query is reflected back on the page. Can you make JavaScript execute?</p>
+
+    <form id="form" method="GET">
+      <label>Search:</label>
+      <br />
+      <input type="text" name="q" id="user-input-search" />
+      <br />
+      <input type="submit" value="Search!" />
+    </form>
+
+    <div id="output"></div>
+    <h3 id="result"></h3>
+
+    <script src="XSS1.js" async defer></script>
+  </body>
+</html>

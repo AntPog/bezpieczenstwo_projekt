@@ -1,5 +1,7 @@
 const express = require("express");
 const mariadb = require("mariadb");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 
@@ -187,8 +189,17 @@ app.post("/getExcerciseByType", async (req, res) => {
 });
 
 
+function hasDangerousSQL(input) {
+    return /\b(DROP|TRUNCATE|CREATE|ALTER)\b/i.test(String(input));
+}
+
 app.post("/getSQL1", async (req, res) => {
     const { user_id } = req.body;
+
+    if (hasDangerousSQL(user_id)) {
+        return res.status(400).json({ error: "Dangerous SQL operation blocked." });
+    }
+
     let conn;
 
     try {
@@ -214,11 +225,12 @@ app.post("/successExcercise", async (req, res) => {
     try {
         conn = await pool.getConnection();
 
-        const rows = await conn.query(`
-            INSERT INTO excercisesPoints ( user_id, ex_id, points ) VALUES ( ?, ?, 1 )
-        `, [user_id, ex_id]);
+        await conn.query(
+            "INSERT INTO excercisesPoints ( user_id, ex_id, points ) VALUES ( ?, ?, 1 )",
+            [user_id, ex_id]
+        );
 
-        res.json(rows);
+        res.json({ success: true });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
@@ -234,9 +246,10 @@ app.post("/checkSuccessExcercise", async (req, res) => {
     try {
         conn = await pool.getConnection();
 
-        const rows = await conn.query(`
-            SELECT * FROM excercisesPoints WHERE user_id = ${user_id} AND ex_id = ${ex_id}
-        `, [user_id, ex_id]);
+        const rows = await conn.query(
+            "SELECT * FROM excercisesPoints WHERE user_id = ? AND ex_id = ?",
+            [user_id, ex_id]
+        );
 
         res.json(rows);
     } catch (err) {
@@ -247,6 +260,135 @@ app.post("/checkSuccessExcercise", async (req, res) => {
     }
 });
 
+
+app.post("/updateUsername", async (req, res) => {
+    const { user_id, new_username } = req.body;
+
+    if (hasDangerousSQL(new_username) || hasDangerousSQL(user_id)) {
+        return res.status(400).json({ error: "Dangerous SQL operation blocked." });
+    }
+
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const result = await conn.query(`
+            UPDATE users SET user_name = '${new_username}' WHERE user_id = ${user_id}
+        `);
+        res.json({ affectedRows: Number(result.affectedRows) });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+app.post("/searchUsers", async (req, res) => {
+    const { search } = req.body;
+
+    if (hasDangerousSQL(search)) {
+        return res.status(400).json({ error: "Dangerous SQL operation blocked." });
+    }
+
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query(`
+            SELECT user_id, user_name FROM users WHERE user_name LIKE '%${search}%'
+        `);
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+app.post("/postComment", async (req, res) => {
+    const { user_id, comment } = req.body;
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const result = await conn.query(
+            "INSERT INTO comments (user_id, comment) VALUES (?, ?)",
+            [user_id, comment]
+        );
+        res.json({ success: result.affectedRows > 0 });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+app.get("/adminData", async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query("SELECT user_id, user_name, password FROM users");
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+app.get("/getUser", async (req, res) => {
+    const { user_id } = req.query;
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query(
+            "SELECT user_id, user_name, password FROM users WHERE user_id = ?",
+            [user_id]
+        );
+        res.json(rows[0] || null);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+app.get("/readNote", (req, res) => {
+    const { file } = req.query;
+    const filePath = path.join(__dirname, "public", "notes", file);
+    try {
+        const content = fs.readFileSync(filePath, "utf8");
+        res.json({ content });
+    } catch (err) {
+        res.status(404).json({ error: "File not found" });
+    }
+});
+
+app.post("/resetDB", async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+
+        await conn.query("UPDATE users SET user_name = 'user1', password = 'pass' WHERE user_id = 1");
+        await conn.query("UPDATE users SET user_name = 'user2', password = 'pass' WHERE user_id = 2");
+        await conn.query("UPDATE users SET user_name = 'user3', password = 'pass' WHERE user_id = 3");
+        await conn.query("DELETE FROM users WHERE user_id > 3");
+        await conn.query("DELETE FROM excercisesPoints");
+        await conn.query("DELETE FROM comments");
+        await conn.query(
+            "INSERT INTO comments (user_id, comment) VALUES (1, 'This site is soooo cool :)'), (2, 'idk seems a bit boring')"
+        );
+
+        res.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");
