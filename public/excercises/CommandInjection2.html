@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Command Injection 2</title>
+    <link rel="stylesheet" href="style_main.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">My App</div>
+
+    <nav class="nav">
+        <button><a href="/mainpage.html" class="normal-link">Home</a></button>
+        <button><a href="/excercises.html" class="normal-link">Excercises</a></button>
+    </nav>
+</header>
+
+<h2>Command Injection 2</h2>
+
+<p>
+Use command injection to read the file containing administrator credentials.
+</p>
+
+<p>
+Target file:
+</p>
+
+<pre>secrets/admin_creds.txt</pre>
+
+<form id="form">
+    <label>IP Address:</label>
+    <br>
+    <input type="text" id="ip">
+    <br><br>
+    <input type="submit" value="Ping">
+</form>
+
+<pre id="result"></pre>
+
+<script src="CommandInjection2.js"></script>
+
+</body>
+</html>

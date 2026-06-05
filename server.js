@@ -2,6 +2,7 @@ const express = require("express");
 const mariadb = require("mariadb");
 const fs = require("fs");
 const path = require("path");
+const { exec } = require("child_process");
 
 const app = express();
 
@@ -449,6 +450,38 @@ app.post("/resetDB", async (req, res) => {
         if (conn) conn.release();
     }
 });
+
+app.post("/ping", async (req, res) => {
+
+    const { ip } = req.body;
+
+    exec(`ping -c 1 ${ip}`, (err, stdout, stderr) => {
+
+        let output = err ? (stderr || err.message) : stdout;
+
+        if (ip.includes("whoami")) {
+            output += "\n\nFLAG{command_injection_user}";
+        }
+
+        if (ip.includes("admin_creds.txt")) {
+            output += "\n\nFLAG{command_injection_creds}";
+        }
+
+        if (
+            ip.includes(" ls") ||
+            ip.endsWith(";ls") ||
+            ip.includes("find .")
+        ) {
+            output += "\n\nFLAG{command_injection_listing}";
+        }
+
+        res.json({
+            output
+        });
+
+    });
+});
+
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");

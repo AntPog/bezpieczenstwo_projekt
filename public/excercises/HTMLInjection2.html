@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML Injection 2</title>
+    <link rel="stylesheet" href="style_main.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">My App</div>
+
+    <nav class="nav">
+        <h3 id="username"></h3>
+        <button><a href="/mainpage.html" class="normal-link">Home</a></button>
+        <button><a href="/excercises.html" class="normal-link">Excercises</a></button>
+        <button class="logout">Logout</button>
+    </nav>
+</header>
+
+<h2>HTML Injection 2</h2>
+
+<p>
+Add a comment and try to inject HTML code into the comments section.
+</p>
+
+<form id="form">
+    <label>Comment:</label>
+    <br>
+    <input type="text" id="user-input-comment">
+    <br><br>
+    <input type="submit" value="Add comment">
+</form>
+
+<h3 id="result"></h3>
+
+<table>
+    <tbody id="comments_body"></tbody>
+</table>
+
+<script src="HTMLInjection2.js"></script>
+
+</body>
+</html>
