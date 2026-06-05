@@ -45,15 +45,25 @@ body {
   align-items: center;
 }
 
+th {
+  width: 25%;
+}
+
+
+
 table {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px;
   border-collapse: collapse;
-  width: 60%;
+  width: 50%;
   background: #111827;
   border-radius: 10px;
   overflow: hidden;
 }
 
-th, td {
+th,
+td {
   padding: 12px;
   text-align: center;
   border-bottom: 1px solid #374151;
@@ -63,20 +73,38 @@ th {
   background: #374151;
 }
 
-  .normal-link {
-    color: #ffffff;
-    text-decoration: none;
-    cursor: pointer;
+.normal-link {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .normal-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .normal-link:visited {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .normal-link:active {
-    color: #0056b3;
+  color: #0056b3;
+}
+
+
+button[class="tab"] {
+  width: 20%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: 10%;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #111827;
+}
+
+.tab-content h2 {
+  text-align: center;
+  margin: 20px 0;
 }
