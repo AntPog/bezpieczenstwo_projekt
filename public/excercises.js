@@ -88,6 +88,7 @@ async function loadExTypes() {
         });
 
         tabscontent.appendChild(row_content);
+        
         tabsmenu.append(row);
     });
 }
