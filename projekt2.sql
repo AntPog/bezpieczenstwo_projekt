@@ -1,9 +1,9 @@
-/*M!999999\- enable the sandbox mode */ 
+/*M!999999\- enable the sandbox mode */
 -- MariaDB dump 10.19-12.3.2-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: projekt
 -- ------------------------------------------------------
--- Server version	12.3.2-MariaDB
+-- Server version 12.3.2-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -58,7 +58,7 @@ CREATE TABLE `excercises` (
   `ex_type` int(11) DEFAULT NULL,
   `ex_title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ex_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,8 +74,10 @@ INSERT INTO `excercises` VALUES
 (3,1,'SQL injection 3'),
 (4,2,'HTML injection 1'),
 (5,3,'Admin view'),
-(6,2,'XSS'),
-(7,3,'IDOR');
+(6,4,'XSS 1'),
+(7,5,'IDOR 1'),
+(8,6,'Broken Auth 1'),
+(9,7,'Path Traversal 1');
 /*!40000 ALTER TABLE `excercises` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -102,13 +104,6 @@ CREATE TABLE `excercisespoints` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `excercisespoints` WRITE;
 /*!40000 ALTER TABLE `excercisespoints` DISABLE KEYS */;
-INSERT INTO `excercisespoints` VALUES
-(1,1,1),
-(1,2,1),
-(1,25,1),
-(6,1,1),
-(7,2,1),
-(6,2,1);
 /*!40000 ALTER TABLE `excercisespoints` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -125,7 +120,7 @@ CREATE TABLE `excercisetypes` (
   `type_id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(55) DEFAULT NULL,
   PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,7 +133,11 @@ LOCK TABLES `excercisetypes` WRITE;
 INSERT INTO `excercisetypes` VALUES
 (1,'SQL'),
 (2,'HTML'),
-(3,'Other');
+(3,'Other'),
+(4,'XSS'),
+(5,'IDOR'),
+(6,'Broken Auth'),
+(7,'Path Traversal');
 /*!40000 ALTER TABLE `excercisetypes` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -167,9 +166,7 @@ LOCK TABLES `points` WRITE;
 /*!40000 ALTER TABLE `points` DISABLE KEYS */;
 INSERT INTO `points` VALUES
 (1,100),
-(2,2),
-(24,0),
-(25,0);
+(2,2);
 /*!40000 ALTER TABLE `points` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -187,7 +184,7 @@ CREATE TABLE `users` (
   `user_name` varchar(20) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,29 +197,7 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES
 (1,'admin','SuperSecretPassword2137'),
 (2,'user2','pass'),
-(3,'user3','pass'),
-(4,'user3','pass'),
-(5,'user3','pass'),
-(6,'user3','pass'),
-(7,'user3','pass'),
-(8,'user3','pass'),
-(9,'user3','pass'),
-(10,'user3','pass'),
-(11,'user3','pass'),
-(12,'user1','pass'),
-(13,'user1','pass'),
-(14,'user1','pass'),
-(15,'user1','pass'),
-(16,'user1','pass'),
-(17,'user1','pass'),
-(18,'user1ss','pass'),
-(19,'sss','pass'),
-(20,'sss','pass'),
-(21,'user1','pass'),
-(22,'user1','pass'),
-(23,'user1','pass'),
-(24,'user55','passs'),
-(25,'user33','pass');
+(3,'user3','pass');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;

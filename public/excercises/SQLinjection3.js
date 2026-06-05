@@ -32,8 +32,12 @@ form.addEventListener("submit", async (event) => {
         resultsBody.appendChild(tr);
     });
 
-    // success: UNION injection dumped password column (passwords in DB are 'pass' / 'passs')
-    const leaked = result.some(row => row.user_name === "pass" || row.user_name === "passs");
+    // success: UNION injection dumped password column
+    const leaked = result.some(row =>
+        row.user_name === "pass" ||
+        row.user_name === "passs" ||
+        row.user_name === "SuperSecretPassword2137"
+    );
 
     if (leaked) {
         showResult.innerHTML = "You extracted password data! SQL injection successful!";

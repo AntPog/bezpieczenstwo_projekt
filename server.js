@@ -431,7 +431,7 @@ app.post("/resetDB", async (req, res) => {
     try {
         conn = await pool.getConnection();
 
-        await conn.query("UPDATE users SET user_name = 'user1', password = 'pass' WHERE user_id = 1");
+        await conn.query("UPDATE users SET user_name = 'admin', password = 'SuperSecretPassword2137' WHERE user_id = 1");
         await conn.query("UPDATE users SET user_name = 'user2', password = 'pass' WHERE user_id = 2");
         await conn.query("UPDATE users SET user_name = 'user3', password = 'pass' WHERE user_id = 3");
         await conn.query("DELETE FROM users WHERE user_id > 3");
