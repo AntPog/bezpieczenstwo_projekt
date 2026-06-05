@@ -25,5 +25,9 @@ getComments();
 
 form.addEventListener("submit", async (event) => {
 
+    const commentValue = givenComment.value;
+
+
+    
 
 })
