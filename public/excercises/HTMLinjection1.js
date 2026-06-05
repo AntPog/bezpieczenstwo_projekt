@@ -3,7 +3,7 @@ const givenComment = document.getElementById("user-input-comment");
 const table = document.getElementById("comments_body");
 const user = localStorage.getItem("user_name");
 const user_id = localStorage.getItem("user_id");
-const EX_ID = 2;
+const EX_ID = 4;
 
 document.getElementById("username").innerText = `Hello ${user} (ID: ${user_id})`;
 
@@ -26,8 +26,52 @@ getComments();
 form.addEventListener("submit", async (event) => {
 
     const commentValue = givenComment.value;
+    const regexForHTML = /<([A-Za-z][A-Za-z0-9]*)\b[^>]*>(.*?)<\/\1>/;
+
+    const responseCheck = await fetch("http://localhost:3000/postComment", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            user_id: user_id,
+            comment: commentValue
+        })
+    });
+
+    const passedExcercise = regexForHTML.test(commentValue);
+
+    if (passedExcercise) {
+
+        const responseCheck = await fetch("http://localhost:3000/checkSuccessExcercise", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                user_id: user_id,
+                ex_id: EX_ID
+            })
+        });
+        const resultCheck = await responseCheck.json();
+
+        if (resultCheck.length > 0) {
+            return
+        }
+        const success = await fetch("http://localhost:3000/successExcercise", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                user_id: user_id,
+                ex_id: EX_ID
+            })
+        });
+
+    }
 
 
-    
+
 
 })

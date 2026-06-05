@@ -288,11 +288,6 @@ app.get("/showUsers", async (req, res) => {
     }
 });
 
-
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
-});
-
 app.post("/postComment", async (req, res) => {
     const { user_id, comment } = req.body;
     let conn;
@@ -312,3 +307,8 @@ app.post("/postComment", async (req, res) => {
         if (conn) conn.release();
     }
 });
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
+
