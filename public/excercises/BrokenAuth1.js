@@ -1,33 +1,20 @@
 const form = document.getElementById("form");
-const givenUsername = document.getElementById("user-input-user_id");
-const showResult = document.getElementById("result");
+const tokenInput = document.getElementById("user-input-token");
 const user = localStorage.getItem("user_name");
 const user_id = localStorage.getItem("user_id");
-const EX_ID = 2;
+const EX_ID = 8;
 
 document.getElementById("username").innerText = `Hello ${user} (ID: ${user_id})`;
+
+// TODO: remove this before going to production!!
+const SECRET_TOKEN = "opensesame";
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:3000/updateUsername", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            user_id: user_id,
-            new_username: givenUsername.value
-        })
-    });
-
-    const result = await response.json();
-
-    if (result.error) {
-        showResult.innerHTML = `Error: ${result.error}`;
-        return;
-    }
-
-    if (result.affectedRows > 1) {
-        showResult.innerHTML = `Updated ${result.affectedRows} users! SQL injection successful!`;
+    if (tokenInput.value === SECRET_TOKEN) {
+        document.getElementById("vault-content").hidden = false;
+        document.getElementById("result").innerText = "Access granted! You found the token in the source code.";
 
         const responseCheck = await fetch("http://localhost:3000/checkSuccessExcercise", {
             method: "POST",
@@ -43,6 +30,6 @@ form.addEventListener("submit", async (event) => {
             body: JSON.stringify({ user_id, ex_id: EX_ID })
         });
     } else {
-        showResult.innerHTML = `Updated ${result.affectedRows} user. Try to affect more...`;
+        document.getElementById("result").innerText = "Wrong token. Hint: check the page source.";
     }
 });

@@ -19,17 +19,13 @@ form.addEventListener("submit", async (event) => {
 
     const result = await response.json();
 
-    document.getElementById("log").innerText =
-        result.success ? "Logged in" : "Invalid login";
-
-    console.log(result);
-    if (result.user) {
-        console.log(result.user);
+    if (result.success) {
         localStorage.setItem("user_name", result.user[0].user_name);
         localStorage.setItem("user_id", result.user[0].user_id);
+        window.location.href = "/mainpage.html";
+    } else {
+        document.getElementById("log").innerText = "Invalid login";
     }
-
-    window.location.href = "/mainpage.html"; 
     
     }
 
