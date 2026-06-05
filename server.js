@@ -5,6 +5,15 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static("public"));
+app.use((req, res, next) => {
+    const payload = JSON.stringify(req.body || {}).toLowerCase();
+    
+    if (payload.includes("drop ") || payload.includes("truncate ") || payload.includes("delete ")) {
+        return res.status(403).json({ error: "Blocked suspicious operation." });
+    }
+    
+    next();
+});
 
 const pool = mariadb.createPool({
     host: "localhost",
@@ -247,6 +256,43 @@ app.post("/checkSuccessExcercise", async (req, res) => {
     }
 });
 
+app.post("/getProfile", async (req, res) => {
+    const { target_id } = req.body;
+    let conn;
+
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query(
+            "SELECT user_id, user_name, password as secret_data FROM users WHERE user_id = ?", 
+            [target_id]
+        );
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+app.get("/showUsers", async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query("SELECT user_id, user_name FROM users");
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
+
 app.post("/postComment", async (req, res) => {
     const { user_id, comment } = req.body;
     let conn;
@@ -265,9 +311,4 @@ app.post("/postComment", async (req, res) => {
     } finally {
         if (conn) conn.release();
     }
-});
-
-
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
 });

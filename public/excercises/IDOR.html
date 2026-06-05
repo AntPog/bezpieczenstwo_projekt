@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Exercise IDOR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style_main.css">
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">My App</div>
+      <nav class="nav">
+        <h3 id="username"></h3>
+        <button><a href="/mainpage.html" class="normal-link">Home</a></button>
+        <button><a href="/excercises.html" class="normal-link">Excercises</a></button>
+        <button class="logout">Logout</button>
+      </nav>
+    </header>
+
+    <H3>Check user profile data</H3>
+    
+    <form id="form">
+      <label>Target user ID:</label>
+      <br />
+      <input type="number" id="user-input-target_id" value="2" />
+      <br />
+      <input type="submit" value="View Profile" />
+    </form>
+
+    <h3 id="result" style="margin-top: 20px;"></h3>
+
+    <script src="IDOR.js" async defer></script>
+  </body>
+</html>
