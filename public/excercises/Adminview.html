@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin view</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style_main.css">
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="logo">My App</div>
+      <nav class="nav">
+        <h3 id="username"></h3>
+        <button><a href="/mainpage.html" class="normal-link">Home</a></button>
+        <button><a href="/excercises.html" class="normal-link">Excercises</a></button>
+        <button class="logout">Logout</button>
+      </nav>
+    </header>
+
+    <div id="access-denied">
+      <H3>Access denied.</H3>
+      <p>You need admin privileges to view this page.</p>
+    </div>
+
+    <div id="admin-panel" hidden>
+      <H3>Admin panel</H3>
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Password</th>
+          </tr>
+        </thead>
+        <tbody id="users-body"></tbody>
+      </table>
+    </div>
+
+    <h3 id="result"></h3>
+
+    <script src="Adminview.js" async defer></script>
+  </body>
+</html>

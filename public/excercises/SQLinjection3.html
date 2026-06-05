@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SQL injection 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style_main.css">
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="logo">My App</div>
+      <nav class="nav">
+        <h3 id="username"></h3>
+        <button><a href="/mainpage.html" class="normal-link">Home</a></button>
+        <button><a href="/excercises.html" class="normal-link">Excercises</a></button>
+        <button class="logout">Logout</button>
+      </nav>
+    </header>
+
+    <H3>Search users</H3>
+    <p>Search for a user by name. Can you extract data from a column that isn't supposed to be returned?</p>
+
+    <form id="form">
+      <label>Search:</label>
+      <br />
+      <input type="text" id="user-input-search" />
+      <br />
+      <input type="submit" value="Search!" />
+    </form>
+
+    <table id="results-table">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody id="results-body"></tbody>
+    </table>
+
+    <h3 id="result"></h3>
+
+    <script src="SQLinjection3.js" async defer></script>
+  </body>
+</html>
