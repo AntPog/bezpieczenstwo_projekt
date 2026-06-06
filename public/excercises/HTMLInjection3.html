@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>HTML Injection 2</title>
+    <title>HTML Injection 3</title>
     <link rel="stylesheet" href="style_main.css">
 </head>
 
@@ -17,30 +17,30 @@
     </nav>
 </header>
 
-<h2>HTML Injection 2</h2>
+<h2>HTML Injection 3</h2>
 
 <p>
-Create a profile description and inject your own HTML into the preview section.
+Create a public announcement and inject a fake login form into the announcement content.
 </p>
 
 <p>
-Goal: inject a visible HTML header into the profile preview.
+Goal: inject your own HTML form into the announcement preview.
 </p>
 
 <form id="form">
-    <label>Profile description:</label>
+    <label>Announcement content:</label>
     <br>
-    <input type="text" id="bio">
+    <input type="text" id="announcement">
     <br><br>
-    <input type="submit" value="Preview">
+    <input type="submit" value="Publish preview">
 </form>
 
-<h3>Profile preview:</h3>
-<div id="preview"></div>
+<h3>Announcement preview:</h3>
+<div id="announcement-preview"></div>
 
 <h3 id="result"></h3>
 
-<script src="HTMLInjection2.js"></script>
+<script src="HTMLInjection3.js"></script>
 
 </body>
 </html>

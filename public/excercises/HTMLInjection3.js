@@ -1,22 +1,22 @@
 const user_id = localStorage.getItem("user_id");
-const EX_ID = 13;
+const EX_ID = 14; 
 
 document.getElementById("form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const bio = document.getElementById("bio").value;
-    const preview = document.getElementById("preview");
+    const announcement = document.getElementById("announcement").value;
+    const preview = document.getElementById("announcement-preview");
     const result = document.getElementById("result");
 
     preview.innerHTML = `
-        <div>
-            <h3>User profile</h3>
-            <p>${bio}</p>
-        </div>
+        <section>
+            <h3>Important announcement</h3>
+            <div>${announcement}</div>
+        </section>
     `;
 
-    if (bio.includes("<h1") || bio.includes("<h2") || bio.includes("<h3")) {
-        result.innerText = "FLAG{html_injection_2}";
+    if (announcement.includes("<form") || announcement.includes("<input")) {
+        result.innerText = "FLAG{html_injection_3}";
 
         const responseCheck = await fetch("/checkSuccessExcercise", {
             method: "POST",
