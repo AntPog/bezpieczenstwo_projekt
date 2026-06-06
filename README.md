@@ -43,6 +43,9 @@ bezpieczenstwo_projekt/
         ├── IDOR1.html / .js
         ├── BrokenAuth1.html / .js
         └── PathTraversal1.html / .js
+        ├── CommandInjection1.html / .js
+        ├── CommandInjection2.html / .js
+        └── CommandInjection3.html / .js
 ```
 
 ---
@@ -124,6 +127,8 @@ comments         – komentarze używane w zadaniu HTML injection
 |---|---|---|---|
 | HTML injection 1 | `innerHTML` przy renderowaniu komentarzy | Wstrzyknąć kod HTML | Wysłać komentarz zawierający tagi HTML, np. `<b>test</b>` lub `<img src=x onerror=alert(1)>` |
 
+
+
 **Podatność:** komentarze wyświetlane przez `innerHTML` zamiast `textContent`.
 
 ---
@@ -166,6 +171,22 @@ comments         – komentarze używane w zadaniu HTML injection
 
 **Podatność:** brak sanitizacji ścieżki – sekwencja `../` pozwala wyjść poza przeznaczony katalog.
 
+### Command Injection
+
+| Zadanie | Podatny endpoint | Cel | Sposób rozwiązania |
+|---|---|---|---|
+| Command Injection 1 | POST /ping | Pozyskać nazwę użytkownika systemowego | 127.0.0.1; whoami |
+| Command Injection 2 | POST /ping | Odczytać plik z danymi administratora | 127.0.0.1; cat secrets/admin_creds.txt |
+| Command Injection 3 | POST /ping | Wyświetlić zawartość katalogu aplikacji | 127.0.0.1; ls |
+
+Flagi:
+
+- FLAG{command_injection_user}
+- FLAG{command_injection_creds}
+- FLAG{command_injection_listing}
+
+Podatność: dane wejściowe są bezpośrednio przekazywane do polecenia systemowego bez walidacji, co umożliwia wykonanie dodatkowych poleceń systemowych.
+
 ---
 
 ### Admin view
@@ -187,6 +208,7 @@ Platforma jest **celowo podatna** w ściśle określonych miejscach:
 | SQL injection | `/getSQL1`, `/updateUsername`, `/searchUsers` | ✅ |
 | Brak autoryzacji (IDOR) | `/getUser`, `/adminData` | ✅ |
 | Path traversal | `/readNote` | ✅ |
+| Command Injection | `/ping` | ✅ |
 | XSS/HTML injection | `innerHTML` w JS klienta | ✅ |
 | Sekret w kodzie klienta | `BrokenAuth1.js` | ✅ |
 | Weryfikacja po stronie klienta | `Adminview.js` | ✅ |
@@ -214,6 +236,8 @@ Pozostałe endpointy (`/login`, `/register`, `/successExcercise`, `/checkSuccess
 | GET | `/getUser` | **[PODATNY]** Pobranie profilu użytkownika |
 | GET | `/readNote` | **[PODATNY]** Odczyt pliku notatki |
 | GET | `/adminData` | **[PODATNY]** Dane użytkowników (brak auth) |
+| POST | `/ping` | **[PODATNY]** Wykonanie polecenia systemowego |
 | POST | `/successExcercise` | Zapis ukończonego zadania |
 | POST | `/checkSuccessExcercise` | Sprawdzenie czy zadanie ukończone |
 | POST | `/resetDB` | Reset bazy do stanu początkowego |
+
