@@ -436,8 +436,10 @@ app.post("/resetDB", async (req, res) => {
         await conn.query("UPDATE users SET user_name = 'user2', password = 'pass' WHERE user_id = 2");
         await conn.query("UPDATE users SET user_name = 'user3', password = 'pass' WHERE user_id = 3");
         await conn.query("DELETE FROM users WHERE user_id > 3");
+        await conn.query("ALTER TABLE users AUTO_INCREMENT = 4");
         await conn.query("DELETE FROM excercisesPoints");
         await conn.query("DELETE FROM comments");
+        await conn.query("ALTER TABLE comments AUTO_INCREMENT = 3");
         await conn.query(
             "INSERT INTO comments (user_id, comment) VALUES (1, 'This site is soooo cool :)'), (2, 'idk seems a bit boring')"
         );
