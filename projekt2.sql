@@ -81,6 +81,9 @@ INSERT INTO `excercises` VALUES
 (10,8,'Command Injection 1'),
 (11,8,'Command Injection 2'),
 (12,8,'Command Injection 3');
+(13,2,'HTML Injection 2'),
+(14,2,'HTML Injection 3');
+
 /*!40000 ALTER TABLE `excercises` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;

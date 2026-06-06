@@ -35,7 +35,9 @@ bezpieczenstwo_projekt/
         ├── SQLinjection1.html / .js
         ├── SQLinjection2.html / .js
         ├── SQLinjection3.html / .js
-        ├── HTMLinjection1.html / HTMLinjection2.js
+        ├── HTMLInjection1.html / .js
+        ├── HTMLInjection2.html / .js
+        ├── HTMLInjection3.html / .js
         ├── Adminview.html / .js
         ├── XSS1.html / .js
         ├── IDOR1.html / .js
@@ -125,7 +127,8 @@ comments         – komentarze używane w zadaniu HTML injection
 | Zadanie | Podatny mechanizm | Cel | Sposób rozwiązania |
 |---|---|---|---|
 | HTML injection 1 | `innerHTML` przy renderowaniu komentarzy | Wstrzyknąć kod HTML | Wysłać komentarz zawierający tagi HTML, np. `<b>test</b>` lub `<img src=x onerror=alert(1)>` |
-
+| HTML injection 2 | `innerHTML` przy podglądzie profilu | Wstrzyknąć własny nagłówek HTML | Wpisać `<h1>HACKED PROFILE</h1>` |
+| HTML injection 3 | `innerHTML` przy podglądzie ogłoszenia | Wstrzyknąć formularz logowania | Wpisać `<form><input placeholder="login"><input placeholder="password"></form>` |
 
 
 **Podatność:** komentarze wyświetlane przez `innerHTML` zamiast `textContent`.
