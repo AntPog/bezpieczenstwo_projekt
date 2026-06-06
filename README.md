@@ -4,8 +4,6 @@
 
 Aplikacja webowa w modelu CTF (Capture The Flag) służąca do nauki praktycznych aspektów cyberbezpieczeństwa. Użytkownicy rejestrują się, rozwiązują zadania z kategorii OWASP Top 10, zdobywają punkty i rywalizują w rankingu.
 
-Każde zadanie demonstruje konkretną podatność webową. Platforma jest celowo podatna na ataki w ściśle określonych miejscach – to umożliwia naukę przez praktykę w bezpiecznym środowisku.
-
 ---
 
 ## Stack technologiczny
@@ -204,15 +202,15 @@ Flagi:
 
 Platforma jest **celowo podatna** w ściśle określonych miejscach:
 
-| Podatność | Lokalizacja | Celowa |
+| Podatność | Lokalizacja
 |---|---|---|
-| SQL injection | `/getSQL1`, `/updateUsername`, `/searchUsers` | ✅ |
-| Brak autoryzacji (IDOR) | `/getUser`, `/adminData` | ✅ |
-| Path traversal | `/readNote` | ✅ |
-| Command Injection | `/ping` | ✅ |
-| XSS/HTML injection | `innerHTML` w JS klienta | ✅ |
-| Sekret w kodzie klienta | `BrokenAuth1.js` | ✅ |
-| Weryfikacja po stronie klienta | `Adminview.js` | ✅ |
+| SQL injection | `/getSQL1`, `/updateUsername`, `/searchUsers`
+| Brak autoryzacji (IDOR) | `/getUser`, `/adminData`
+| Path traversal | `/readNote`
+| Command Injection | `/ping` 
+| XSS/HTML injection | `innerHTML` w JS klienta 
+| Sekret w kodzie klienta | `BrokenAuth1.js` 
+| Weryfikacja po stronie klienta | `Adminview.js` 
 
 Pozostałe endpointy (`/login`, `/register`, `/successExcercise`, `/checkSuccessExcercise`, `/leaderboard`, `/resetDB`) używają parametryzowanych zapytań.
 
