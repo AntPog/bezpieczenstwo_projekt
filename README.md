@@ -82,10 +82,11 @@ Aplikacja działa pod adresem: **http://localhost:3000**
 
 ### Dane testowe
 
-| Login | Hasło |
-|---|---|
-| user1 | pass |
-| user2 | pass |
+| Login | Hasło | Uwagi |
+|---|---|---|
+| admin | SuperSecretPassword2137 | Konto administratora |
+| user2 | pass | |
+| user3 | pass | |
 
 ### Zatrzymanie serwera
 
@@ -185,7 +186,7 @@ Flagi:
 - FLAG{command_injection_creds}
 - FLAG{command_injection_listing}
 
-Podatność: dane wejściowe są bezpośrednio przekazywane do polecenia systemowego bez walidacji, co umożliwia wykonanie dodatkowych poleceń systemowych.
+**Podatność:** dane wejściowe są bezpośrednio przekazywane do polecenia systemowego bez walidacji, co umożliwia wykonanie dodatkowych poleceń systemowych.
 
 ---
 
