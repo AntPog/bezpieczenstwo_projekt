@@ -58,7 +58,7 @@ CREATE TABLE `excercises` (
   `ex_type` int(11) DEFAULT NULL,
   `ex_title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ex_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,12 +71,16 @@ LOCK TABLES `excercises` WRITE;
 INSERT INTO `excercises` VALUES
 (1,1,'SQL injection 1'),
 (2,1,'SQL injection 2'),
+(3,1,'SQL injection 3'),
 (4,2,'HTML injection 1'),
 (5,3,'Admin view'),
 (6,4,'XSS 1'),
 (7,5,'IDOR 1'),
 (8,6,'Broken Auth 1'),
-(9,7,'Path Traversal 1');
+(9,7,'Path Traversal 1'),
+(10,8,'Command Injection 1'),
+(11,8,'Command Injection 2'),
+(12,8,'Command Injection 3');
 /*!40000 ALTER TABLE `excercises` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -103,6 +107,15 @@ CREATE TABLE `excercisespoints` (
 SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `excercisespoints` WRITE;
 /*!40000 ALTER TABLE `excercisespoints` DISABLE KEYS */;
+INSERT INTO `excercisespoints` VALUES
+(1,2,1),
+(2,2,1),
+(3,2,1),
+(4,2,1),
+(5,2,1),
+(1,3,1),
+(4,3,1),
+(6,3,1);
 /*!40000 ALTER TABLE `excercisespoints` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -119,7 +132,7 @@ CREATE TABLE `excercisetypes` (
   `type_id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(55) DEFAULT NULL,
   PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +149,8 @@ INSERT INTO `excercisetypes` VALUES
 (4,'XSS'),
 (5,'IDOR'),
 (6,'Broken Auth'),
-(7,'Path Traversal');
+(7,'Path Traversal'),
+(8,'Command Injection');
 /*!40000 ALTER TABLE `excercisetypes` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
