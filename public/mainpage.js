@@ -27,6 +27,11 @@ const user = localStorage.getItem("user_name");
 const user_id = localStorage.getItem("user_id");
 document.getElementById("username").innerText = `Hello ${user} (ID: ${user_id})`;
 
+document.querySelector(".logout").addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = "/";
+});
+
 document.getElementById("reset-btn").addEventListener("click", async () => {
     if (!confirm("Reset the database to its initial state? All progress and registered users will be lost.")) return;
 

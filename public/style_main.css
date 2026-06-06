@@ -37,6 +37,14 @@ body {
   background: #ef4444;
 }
 
+.nav .reset {
+  background: #7f1d1d;
+}
+
+.nav .reset:hover {
+  background: #991b1b;
+}
+
 /* CENTER TABLE */
 .container {
   height: calc(100vh - 70px);
