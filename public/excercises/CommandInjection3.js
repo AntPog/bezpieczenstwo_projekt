@@ -1,3 +1,6 @@
+const user_id = localStorage.getItem("user_id");
+const EX_ID = 12;
+
 document.getElementById("form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -5,13 +8,26 @@ document.getElementById("form").addEventListener("submit", async (e) => {
 
     const response = await fetch("/ping", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ip })
     });
 
     const data = await response.json();
-
     document.getElementById("result").textContent = data.output;
+
+    if (data.output && data.output.includes("FLAG{command_injection_listing}")) {
+        const responseCheck = await fetch("/checkSuccessExcercise", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id, ex_id: EX_ID })
+        });
+        const resultCheck = await responseCheck.json();
+        if (resultCheck.length > 0) return;
+
+        await fetch("/successExcercise", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id, ex_id: EX_ID })
+        });
+    }
 });
