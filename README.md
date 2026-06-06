@@ -32,17 +32,17 @@ bezpieczenstwo_projekt/
     ├── excercises.html     # Lista zadań (zakładki per kategoria)
     ├── notes/              # Katalog używany w zadaniu Path Traversal
     └── excercises/         # Pliki poszczególnych zadań
-        ├── SQLinjection1.html / .js
+        ├── SQLinjection1.html / SQLinjection.js
         ├── SQLinjection2.html / .js
         ├── SQLinjection3.html / .js
-        ├── HTMLInjection1.html / .js
+        ├── HTMLinjection1.html / .js
         ├── HTMLInjection2.html / .js
         ├── HTMLInjection3.html / .js
         ├── Adminview.html / .js
         ├── XSS1.html / .js
         ├── IDOR1.html / .js
         ├── BrokenAuth1.html / .js
-        └── PathTraversal1.html / .js
+        ├── PathTraversal1.html / .js
         ├── CommandInjection1.html / .js
         ├── CommandInjection2.html / .js
         └── CommandInjection3.html / .js
@@ -173,13 +173,15 @@ comments         – komentarze używane w zadaniu HTML injection
 
 **Podatność:** brak sanitizacji ścieżki – sekwencja `../` pozwala wyjść poza przeznaczony katalog.
 
+---
+
 ### Command Injection
 
 | Zadanie | Podatny endpoint | Cel | Sposób rozwiązania |
 |---|---|---|---|
-| Command Injection 1 | POST /ping | Pozyskać nazwę użytkownika systemowego | 127.0.0.1; whoami |
-| Command Injection 2 | POST /ping | Odczytać plik z danymi administratora | 127.0.0.1; cat secrets/admin_creds.txt |
-| Command Injection 3 | POST /ping | Wyświetlić zawartość katalogu aplikacji | 127.0.0.1; ls |
+| Command Injection 1 | `POST /ping` | Pozyskać nazwę użytkownika systemowego | `127.0.0.1; whoami` |
+| Command Injection 2 | `POST /ping` | Odczytać plik z danymi administratora | `127.0.0.1; cat secrets/admin_creds.txt` |
+| Command Injection 3 | `POST /ping` | Wyświetlić zawartość katalogu aplikacji | `127.0.0.1; ls` |
 
 Flagi:
 
@@ -205,15 +207,15 @@ Flagi:
 
 Platforma jest **celowo podatna** w ściśle określonych miejscach:
 
-| Podatność | Lokalizacja
+| Podatność | Lokalizacja | Celowa |
 |---|---|---|
-| SQL injection | `/getSQL1`, `/updateUsername`, `/searchUsers`
-| Brak autoryzacji (IDOR) | `/getUser`, `/adminData`
-| Path traversal | `/readNote`
-| Command Injection | `/ping` 
-| XSS/HTML injection | `innerHTML` w JS klienta 
-| Sekret w kodzie klienta | `BrokenAuth1.js` 
-| Weryfikacja po stronie klienta | `Adminview.js` 
+| SQL injection | `/getSQL1`, `/updateUsername`, `/searchUsers` | ✅ |
+| Brak autoryzacji (IDOR) | `/getUser`, `/adminData` | ✅ |
+| Path traversal | `/readNote` | ✅ |
+| Command Injection | `/ping` | ✅ |
+| XSS/HTML injection | `innerHTML` w JS klienta | ✅ |
+| Sekret w kodzie klienta | `BrokenAuth1.js` | ✅ |
+| Weryfikacja po stronie klienta | `Adminview.js` | ✅ |
 
 Pozostałe endpointy (`/login`, `/register`, `/successExcercise`, `/checkSuccessExcercise`, `/leaderboard`, `/resetDB`) używają parametryzowanych zapytań.
 

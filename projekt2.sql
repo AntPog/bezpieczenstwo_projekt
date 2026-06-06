@@ -58,7 +58,7 @@ CREATE TABLE `excercises` (
   `ex_type` int(11) DEFAULT NULL,
   `ex_title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ex_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ INSERT INTO `excercises` VALUES
 (9,7,'Path Traversal 1'),
 (10,8,'Command Injection 1'),
 (11,8,'Command Injection 2'),
-(12,8,'Command Injection 3');
+(12,8,'Command Injection 3'),
 (13,2,'HTML Injection 2'),
 (14,2,'HTML Injection 3');
 
